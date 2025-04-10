@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 import uvicorn
 import numpy as np
-from model import IRCModel
+from lazy_model import LazyIRCModel
 
 # Initialize the FastAPI app
 app = FastAPI(
@@ -22,8 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Load the model on startup
-model = IRCModel()
+# Load the model on startup (in background)
+model = LazyIRCModel()
 
 # Input data model
 class PredictionInput(BaseModel):
@@ -75,6 +75,13 @@ class PredictionOutput(BaseModel):
     stage_probabilities: List[StageProbability]
     feature_importance: List[FeatureImportance]
 
+# Model status model
+class ModelStatus(BaseModel):
+    status: str
+    model_loaded: bool
+    model_loading: bool
+    model_type: Optional[str] = None
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to the NéphroPredict API. Use /predict endpoint to make IRC stage predictions."}
@@ -82,7 +89,19 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Endpoint for health checks"""
-    return {"status": "ok", "model_loaded": model._model is not None}
+    status = model.get_status()
+    return {"status": "ok", "model_status": status}
+
+@app.get("/model/status", response_model=ModelStatus)
+async def model_status():
+    """Get the current status of the model"""
+    status = model.get_status()
+    return ModelStatus(
+        status="ok" if status["model_loaded"] else "loading",
+        model_loaded=status["model_loaded"],
+        model_loading=status["model_loading"],
+        model_type=status["model_type"]
+    )
 
 @app.post("/predict", response_model=PredictionOutput)
 async def predict(input_data: PredictionInput):
@@ -131,4 +150,4 @@ async def predict(input_data: PredictionInput):
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run("render_main:app", host="0.0.0.0", port=8000, reload=False)

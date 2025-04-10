@@ -1,0 +1,36 @@
+[2025-04-10 13:12:58 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:59)
+[2025-04-10 13:12:58 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:60)
+[2025-04-10 13:12:58 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:61)
+[2025-04-10 13:12:58 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:62)
+[2025-04-10 13:12:58 +0000] [1] [ERROR] Worker (pid:60) was sent code 134!
+[2025-04-10 13:12:58 +0000] [1] [ERROR] Worker (pid:62) was sent code 134!
+[2025-04-10 13:12:58 +0000] [1] [ERROR] Worker (pid:59) was sent code 134!
+[2025-04-10 13:12:58 +0000] [91] [INFO] Booting worker with pid: 91
+[2025-04-10 13:12:58 +0000] [92] [INFO] Booting worker with pid: 92
+[2025-04-10 13:12:58 +0000] [1] [ERROR] Worker (pid:61) was sent code 134!
+[2025-04-10 13:12:58 +0000] [93] [INFO] Booting worker with pid: 93
+[2025-04-10 13:12:58 +0000] [94] [INFO] Booting worker with pid: 94
+[2025-04-10 13:13:28 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:91)
+[2025-04-10 13:13:28 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:92)
+[2025-04-10 13:13:28 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:93)
+[2025-04-10 13:13:28 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:94)
+[2025-04-10 13:13:29 +0000] [1] [ERROR] Worker (pid:91) was sent code 134!
+[2025-04-10 13:13:29 +0000] [123] [INFO] Booting worker with pid: 123
+[2025-04-10 13:13:29 +0000] [1] [ERROR] Worker (pid:93) was sent code 134!
+[2025-04-10 13:13:29 +0000] [1] [ERROR] Worker (pid:92) was sent code 134!
+[2025-04-10 13:13:29 +0000] [1] [ERROR] Worker (pid:94) was sent code 134!
+[2025-04-10 13:13:29 +0000] [124] [INFO] Booting worker with pid: 124
+[2025-04-10 13:13:29 +0000] [125] [INFO] Booting worker with pid: 125
+[2025-04-10 13:13:29 +0000] [126] [INFO] Booting worker with pid: 126
+[2025-04-10 13:13:59 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:123)
+[2025-04-10 13:13:59 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:124)
+[2025-04-10 13:13:59 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:125)
+[2025-04-10 13:13:59 +0000] [1] [CRITICAL] WORKER TIMEOUT (pid:126)
+[2025-04-10 13:13:59 +0000] [1] [ERROR] Worker (pid:123) was sent code 134!
+[2025-04-10 13:14:00 +0000] [1] [ERROR] Worker (pid:124) was sent code 134!
+[2025-04-10 13:14:00 +0000] [1] [ERROR] Worker (pid:125) was sent code 134!
+[2025-04-10 13:14:00 +0000] [1] [ERROR] Worker (pid:126) was sent code 134!
+[2025-04-10 13:14:00 +0000] [160] [INFO] Booting worker with pid: 160
+[2025-04-10 13:14:00 +0000] [161] [INFO] Booting worker with pid: 161
+[2025-04-10 13:14:00 +0000] [162] [INFO] Booting worker with pid: 162
+[2025-04-10 13:14:00 +0000] [163] [INFO] Booting worker with pid: 163
