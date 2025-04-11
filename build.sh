@@ -18,6 +18,9 @@ command -v pip3 >/dev/null 2>&1 || { echo -e "${RED}pip3 est requis mais n'est p
 # Création du répertoire de build s'il n'existe pas
 mkdir -p dist
 
+# Aller dans le dossier client pour gérer le frontend
+cd client
+
 # Installation des dépendances frontend
 echo -e "${GREEN}Installation des dépendances frontend...${NC}"
 npm install
@@ -26,13 +29,16 @@ npm install
 echo -e "${GREEN}Build du frontend...${NC}"
 npm run build
 
+# Revenir au répertoire principal
+cd ..
+
 # Préparation de l'environnement Python
 echo -e "${GREEN}Installation des dépendances Python pour le backend...${NC}"
 pip3 install -r server/fastapi/production_requirements.txt
 
 # Copie des fichiers nécessaires dans le répertoire de distribution
 echo -e "${GREEN}Copie des fichiers dans le répertoire de distribution...${NC}"
-cp -r dist dist/public
+cp -r client/dist dist/public
 mkdir -p dist/server
 cp -r server/fastapi dist/server/
 cp -r attached_assets dist/attached_assets
@@ -86,7 +92,7 @@ WORKDIR /app
 COPY public ./public
 COPY server/fastapi ./server/fastapi
 COPY attached_assets ./attached_assets
-COPY start_production.sh .
+COPY start_production.sh ./
 
 RUN pip install --no-cache-dir -r server/fastapi/production_requirements.txt
 RUN chmod +x start_production.sh
