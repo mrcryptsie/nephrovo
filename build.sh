@@ -38,7 +38,7 @@ pip3 install -r server/fastapi/production_requirements.txt
 
 # Copie des fichiers nécessaires dans le répertoire de distribution
 echo -e "${GREEN}Copie des fichiers dans le répertoire de distribution...${NC}"
-cp -r client/dist dist/public
+cp -r dist dist/public
 mkdir -p dist/server
 cp -r server/fastapi dist/server/
 cp -r attached_assets dist/attached_assets
