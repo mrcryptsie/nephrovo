@@ -3,7 +3,7 @@ import { PredictionInput } from "@shared/schema";
 import { PredictionResponse } from "@shared/types";
 
 // FastAPI service URL - in production this would come from environment variables
-const FASTAPI_URL = process.env.FASTAPI_URL || "http://localhost:8000";
+const FASTAPI_URL = process.env.FASTAPI_URL || "https://nephrovo.onrender.com";
 
 export async function makeRequestToFastAPI(
   data: PredictionInput
