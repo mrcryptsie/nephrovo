@@ -1,9 +1,11 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any, Optional
 import uvicorn
 import numpy as np
+import os
 from lazy_model import LazyIRCModel
 
 # Initialize the FastAPI app
@@ -21,6 +23,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve the frontend (React app)
+frontend_dir = os.path.join(os.getcwd(), "dist/public")
+app.mount("/public", StaticFiles(directory=frontend_dir), name="public")
 
 # Load the model on startup (in background)
 model = LazyIRCModel()
