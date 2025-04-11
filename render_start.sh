@@ -24,6 +24,19 @@ fi
 
 cd "$FASTAPI_DIR"
 
+# Vérification de l'installation de gunicorn et uvicorn
+if ! command -v gunicorn &> /dev/null
+then
+    echo "gunicorn n'est pas installé, installation en cours..."
+    pip install gunicorn
+fi
+
+if ! command -v uvicorn &> /dev/null
+then
+    echo "uvicorn n'est pas installé, installation en cours..."
+    pip install uvicorn
+fi
+
 # Démarrer avec un seul worker et augmenter le timeout
 # Utiliser render_main.py au lieu de main.py pour bénéficier du chargement paresseux du modèle
 exec gunicorn render_main:app \
