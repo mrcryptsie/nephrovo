@@ -16,7 +16,7 @@ command -v python3 >/dev/null 2>&1 || { echo -e "${RED}Python 3 est requis mais 
 command -v pip3 >/dev/null 2>&1 || { echo -e "${RED}pip3 est requis mais n'est pas installé. Merci de l'installer.${NC}" >&2; exit 1; }
 
 # Création du répertoire de build s'il n'existe pas
-mkdir -p dist
+mkdir -p client/dist
 
 # Installation des dépendances frontend
 echo -e "${GREEN}Installation des dépendances frontend...${NC}"
@@ -32,14 +32,14 @@ pip3 install -r server/fastapi/production_requirements.txt
 
 # Copie des fichiers nécessaires dans le répertoire de distribution
 echo -e "${GREEN}Copie des fichiers dans le répertoire de distribution...${NC}"
-cp -r dist dist/public
-mkdir -p dist/server
-cp -r server/fastapi dist/server/
-cp -r attached_assets dist/attached_assets
-cp start_production.sh dist/
+cp -r client/dist client/dist/public
+mkdir -p client/dist/server
+cp -r server/fastapi client/dist/server/
+cp -r attached_assets client/dist/attached_assets
+cp start_production.sh client/dist/
 
 echo -e "${GREEN}Création du fichier README pour le déploiement...${NC}"
-cat > dist/README.md << 'EOL'
+cat > client/dist/README.md << 'EOL'
 # NéphroPredict - Instructions de déploiement
 
 Cette application combine un backend FastAPI en Python et un frontend React précompilé.
@@ -78,7 +78,7 @@ Un Dockerfile est fourni pour faciliter le déploiement containerisé.
 EOL
 
 echo -e "${GREEN}Création du fichier Dockerfile...${NC}"
-cat > dist/Dockerfile << 'EOL'
+cat > client/dist/Dockerfile << 'EOL'
 FROM python:3.9-slim
 
 WORKDIR /app
@@ -97,5 +97,5 @@ CMD ["./start_production.sh"]
 EOL
 
 echo -e "${CYAN}=== Build terminé avec succès! ===${NC}"
-echo -e "Le résultat se trouve dans le répertoire ${GREEN}dist/${NC}"
-echo -e "Pour démarrer l'application en production, exécutez ${GREEN}./dist/start_production.sh${NC}"
+echo -e "Le résultat se trouve dans le répertoire ${GREEN}client/dist/${NC}"
+echo -e "Pour démarrer l'application en production, exécutez ${GREEN}./client/dist/start_production.sh${NC}"
