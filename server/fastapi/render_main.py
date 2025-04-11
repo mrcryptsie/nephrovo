@@ -18,14 +18,14 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific domains
+    allow_origins=["https://nephrovo.onrender.com"],  # Replace "*" with the production frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # Serve the frontend (React app)
-frontend_dir = os.path.join(os.getcwd(), "dist/public")
+frontend_dir = os.path.join(os.path.dirname(__file__), "dist/public")  # Adjust path for production
 app.mount("/public", StaticFiles(directory=frontend_dir), name="public")
 
 # Load the model on startup (in background)
@@ -64,29 +64,7 @@ class PredictionInput(BaseModel):
             }
         }
 
-# Stage probability model
-class StageProbability(BaseModel):
-    stage: int
-    probability: float
-
-# Feature importance model
-class FeatureImportance(BaseModel):
-    feature: str
-    importance: float
-
-# Prediction output model
-class PredictionOutput(BaseModel):
-    predicted_stage: int
-    confidence: float
-    stage_probabilities: List[StageProbability]
-    feature_importance: List[FeatureImportance]
-
-# Model status model
-class ModelStatus(BaseModel):
-    status: str
-    model_loaded: bool
-    model_loading: bool
-    model_type: Optional[str] = None
+# Other classes for the model go here ...
 
 @app.get("/")
 async def root():
@@ -112,46 +90,8 @@ async def model_status():
 @app.post("/predict", response_model=PredictionOutput)
 async def predict(input_data: PredictionInput):
     try:
-        # Convert input to the format expected by the model
-        input_dict = {
-            'Créatinine (mg/L)': input_data.créatinine_mg_L,
-            'Urée (g/L)': input_data.urée_g_L,
-            'Age': input_data.age,
-            'Na^+ (meq/L)': input_data.sodium_meq_L,
-            'TA (mmHg)/Systole': input_data.ta_systole,
-            'Choc de Pointe/Perçu': input_data.choc_de_pointe,
-            'Score de Glasgow (/15)': input_data.glasgow,
-            'Sexe_M': input_data.sexe_M,
-            'Anémie_True': input_data.anémie_true,
-            'Enquête Sociale/Tabac_True': input_data.tabac_true,
-            'Enquête Sociale/Alcool_True': input_data.alcool_true
-        }
-        
-        # Make prediction
-        prediction_result = model.predict(input_dict)
-        
-        # Get stage probabilities
-        probabilities = model.get_stage_probabilities()
-        stage_probs = [
-            StageProbability(stage=stage, probability=prob)
-            for stage, prob in probabilities.items()
-        ]
-        
-        # Get feature importance
-        feature_imp = model.get_feature_importance()
-        feature_importance = [
-            FeatureImportance(feature=feat, importance=imp)
-            for feat, imp in feature_imp.items()
-        ]
-        
-        # Return prediction results
-        return PredictionOutput(
-            predicted_stage=prediction_result,
-            confidence=probabilities[prediction_result],
-            stage_probabilities=stage_probs,
-            feature_importance=feature_importance
-        )
-    
+        # Prediction logic here ...
+        return PredictionOutput(...)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Prediction error: {str(e)}")
 
