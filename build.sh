@@ -33,14 +33,6 @@ cd ..
 echo -e "${GREEN}Installation des dépendances Python pour le backend...${NC}"
 pip3 install -r server/fastapi/production_requirements.txt
 
-# Copie des fichiers nécessaires dans le répertoire de distribution
-echo -e "${GREEN}Copie des fichiers dans le répertoire de distribution...${NC}"
-cp -r dist/* dist/public/   # Copie des fichiers du frontend dans dist/public
-mkdir -p dist/server
-cp -r server/fastapi dist/server/
-cp -r attached_assets dist/attached_assets
-cp start_production.sh dist/
-
 echo -e "${GREEN}Création du fichier README pour le déploiement...${NC}"
 cat > dist/README.md << 'EOL'
 # NéphroPredict - Instructions de déploiement
